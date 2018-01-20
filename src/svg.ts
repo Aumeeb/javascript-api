@@ -20,11 +20,7 @@ export function embedSVG(type: SVGType) {
     let embed = document.createElement('embed');
     embed.width = side;
     embed.height = side;
+    embed.src = path+type;
 
-    for (const iterator of type) {
-        if (iterator == type) {
-            embed.src = path+type;
-        }
-    }
     return embed;
 }

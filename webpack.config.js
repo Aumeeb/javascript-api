@@ -2,14 +2,13 @@
 exports.__esModule = true;
 var path = require("path");
 var autotruck_1 = require("./src/server/autotruck");
+var devOption_1 = require("./src/server/devOption");
 autotruck_1.copyResources();
-var outerIP = '117.62.230.235';
-var innerIP = '127.0.0.1';
 var config = {
     devtool: 'source-map',
     entry: ['./src/index.ts'],
     output: {
-        path: path.resolve(__dirname, autotruck_1.outputFolder),
+        path: path.resolve(__dirname, devOption_1.dev.outputFolder),
         filename: 'bundle.js'
     },
     resolve: {
@@ -24,10 +23,10 @@ var config = {
         ]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, autotruck_1.outputFolder),
-        host: innerIP,
+        contentBase: path.resolve(__dirname, devOption_1.dev.outputFolder),
+        host: devOption_1.dev.innerIP,
         compress: true,
-        port: 2222 //端口
+        port: devOption_1.dev.port //端口
     }
 };
 exports["default"] = config;

@@ -1,14 +1,13 @@
 import * as fs from 'fs';
 import * as path from "path";
+import {dev} from './devOption'
+
 var copy = require('recursive-copy');
-
-
-export const outputFolder = 'build'; //文件的输出的文件夹
 
 const foldersName = ['data', 'resource'];
 const srcPath = path.resolve(__dirname, '..') + '\\' //获取资源路径
 
-const buildPath = path.resolve(__dirname, '../../') + '\\' + outputFolder;
+const buildPath = path.resolve(__dirname, '../../') + '\\' + dev.outputFolder;
 
 
 export function copyResources() {

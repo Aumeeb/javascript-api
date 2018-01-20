@@ -1,11 +1,11 @@
 "use strict";
 exports.__esModule = true;
 var path = require("path");
+var devOption_1 = require("./devOption");
 var copy = require('recursive-copy');
-exports.outputFolder = 'build'; //文件的输出的文件夹
 var foldersName = ['data', 'resource'];
 var srcPath = path.resolve(__dirname, '..') + '\\'; //获取资源路径
-var buildPath = path.resolve(__dirname, '../../') + '\\' + exports.outputFolder;
+var buildPath = path.resolve(__dirname, '../../') + '\\' + devOption_1.dev.outputFolder;
 function copyResources() {
     for (var _i = 0, foldersName_1 = foldersName; _i < foldersName_1.length; _i++) {
         var folderName = foldersName_1[_i];

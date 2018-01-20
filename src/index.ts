@@ -7,8 +7,10 @@ interface JsSysAPI {
     name: string
 }
 interface OriginalObject {
+    [Prototype: string]: any;
     object: any;
     Prototype: undefined | object;
+
     descripion?: string;
     readonlys?: string[];
     events?: string[];
@@ -39,8 +41,8 @@ Http.get(DataUrl.getJsSysAPI).then((value: Response) => {
         drawAPI(canvas, roots);
     })
 })
-type Filed = 'string' | 'number' | 'boolean';
 
+type BaseType = "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function";
 
 function SetDrawBoard(tagName: string): Node {
     let canvas: Node;
@@ -52,95 +54,58 @@ function SetDrawBoard(tagName: string): Node {
     return canvas;
 
 }
+function drawAnObject(canvas: Node, type: BaseType, key: string) {
+
+    let div = document.createElement('span');
+    let filedName = document.createElement('span');
+
+    if (type == 'function') {
+        div.appendChild(embedSVG(SVGType.Function));
+    } else if (type == 'object' && isEvent(key)) {
+        div.appendChild(embedSVG(SVGType.Event));
+    } else if (type == 'object') {
+        div.appendChild(embedSVG(SVGType.Class));
+    } else if (isConst(key)) {
+        div.appendChild(embedSVG(SVGType.Constant));
+    } else if (type == 'number' || type == 'string' || type == 'boolean') {
+        div.appendChild(embedSVG(SVGType.Field));
+    }
+
+
+
+
+
+    div.appendChild(filedName);
+    filedName.innerHTML = key;
+    canvas.appendChild(div);
+}
 function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
 
     for (const item of roots) {
 
         let spet = document.createElement('p');
-
         spet.innerText = `🌺 ${item["1"].descripion} 🌺`
-
         canvas.appendChild(spet);
 
-        if (item["1"].Prototype != undefined) {
-            // for (const key in Object.getOwnPropertyDescriptors(iterator['1'].Prototype)) {
+        let originalObj = item["1"].object;
 
-            //     let div = document.createElement('span');
-            //     let filedName = document.createElement('span');
-            //     let svg = document.createElement('embed');
-            //     div.appendChild(svg);
-
-            //     svg.width = side;
-            //     svg.height = side;
-            //     let type = typeof iterator[1].prototype[key];
-            //     if (type == 'function') {
-            //         svg.src = path + SVGPath.Function.toString();
-            //     } else if (type == 'object') {
-            //         svg.src = path + SVGPath.Class.toString();
-            //         if (isEvent(key)) {
-            //             svg.src = path + SVGPath.Event.toString();
-            //         }
-            //     }
-            //     else if (type == 'number' || type == 'string' || type == 'boolean') {
-            //         svg.src = path + SVGPath.Field.toString();
-
-            //     }
-            //     // else if (type == 'boolean') {
-            //     //     svg.src = path + SVGPath.Field.toString();
-            //     // }
-
-            //     if (isConst(key)) {
-
-            //         let svgConst = document.createElement('embed');
-            //         svgConst.width = side;
-            //         svgConst.height = side;
-            //         svgConst.src = path + SVGPath.Constant.toString();
-            //         div.appendChild(svgConst);
-            //     }
-
-
-            //     div.appendChild(filedName);
-            //     filedName.innerHTML = key;
-            //     canvas.appendChild(div);
-            // }
-        } else {
-
-            let originalObj = item[1].object
-            for (const key in originalObj) {
-
-                let div = document.createElement('span');
-                let filedName = document.createElement('span');
-
-
-                let type = typeof originalObj[key];
-
-
-                if (type == 'function') {
-                    div.appendChild(embedSVG(SVGType.Function));
-                } else if (type == 'object' && isEvent(key)) {
-                    div.appendChild(embedSVG(SVGType.Event));
-                } else if (type == 'object') {
-                    div.appendChild(embedSVG(SVGType.Class));
-                } else if (type == 'number' || type == 'string' || type == 'boolean') {
-                    div.appendChild(embedSVG(SVGType.Field));
-                }
-
-                if (isConst(key)) {
-                    
-                    div.appendChild(embedSVG(SVGType.Constant));
-                }
-
-                div.appendChild(filedName);
-                filedName.innerHTML = key;
-                canvas.appendChild(div);
-            }
+        for (const key in originalObj) {
+            drawAnObject(canvas, typeof originalObj[key], key)
         }
 
+        if (item["1"].Prototype != undefined) {
+            let spet = document.createElement('p');
+            spet.style.paddingLeft = '100px';
+            spet.innerText = `🌸 Prototype  Property 🌸`
+            canvas.appendChild(spet);
 
+            for (const key in Object.getOwnPropertyDescriptors(item['1'].Prototype)) {
+                drawAnObject(canvas, typeof (item["1"].Prototype as any)[key], key)
+            }
+
+        }
     }
 }
-
-
 
 
 
