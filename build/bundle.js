@@ -74,13 +74,17 @@ const svg_1 = __webpack_require__(1);
 const stringValidate_1 = __webpack_require__(2);
 function initTreeRoot() {
     const roots = new Map();
-    roots.set('window', window);
-    roots.set('navigator ', navigator);
-    roots.set('screen', screen);
-    roots.set('history', history);
-    roots.set('location', location);
-    roots.set('Array', Array);
-    roots.set('Number', Number);
+    roots.set('window', new class {
+        constructor() {
+            this.object = window;
+        }
+    });
+    // roots.set('navigator ', navigator);
+    // roots.set('screen', screen);
+    // roots.set('history', history);
+    // roots.set('location', location);
+    // roots.set('Array', Array);
+    // roots.set('Number', Number);
     return roots;
 }
 function SetDrawBoard(tagName) {
@@ -95,7 +99,6 @@ function SetDrawBoard(tagName) {
 }
 function drawAPI(canvas) {
     for (const iterator of roots) {
-        我要查看所有浏览器对应的API;
         let spet = document.createElement('p');
         spet.innerText = `🌺 ${iterator[0]} 🌺`;
         canvas.appendChild(spet);
