@@ -1,12 +1,14 @@
-import { SVGPath, path } from "./svg";
+import { SVGType, path, embedSVG } from "./svg";
 import { isConst, isEvent } from "./stringValidate";
 import { IObjectInfo } from "./statistics";
-import { get } from "./fetch";
+import { Http, DataUrl } from "./fetch";
 
-type API = { name: '' };
+interface JsSysAPI {
+    name: string
+}
 interface OriginalObject {
     object: any;
-    hasPrototype?: boolean;
+    Prototype: undefined | object;
     descripion?: string;
     readonlys?: string[];
     events?: string[];
@@ -15,27 +17,31 @@ interface OriginalObject {
     constants?: string[]
 }
 
-get('./data/js.json').then(value => {
-    value.json().then((d:API[])=>{
-                console.log('🐷');
-                d.forEach(p=>{ console.log(p.name)})
-    })  
+
+Http.get(DataUrl.getJsSysAPI).then((value: Response) => {
+    value.json().then((api: JsSysAPI[]) => {
+
+        const canvas = SetDrawBoard('body');
+        const side: string = `32`;
+
+
+        const roots = new Map<string, OriginalObject>();
+        api.forEach(
+            p => {
+                roots.set(p.name, new class implements OriginalObject {
+                    object = eval(p.name);
+                    Prototype = eval(`${p.name}.prototype`);
+                    descripion = p.name
+                })
+            }
+        )
+
+        drawAPI(canvas, roots);
+    })
 })
 type Filed = 'string' | 'number' | 'boolean';
 
-function initTreeRoot(): Map<string, OriginalObject> {
-    const roots = new Map<string, OriginalObject>();
-    roots.set('window', new class implements OriginalObject {
-        object = window
-    });
-    // roots.set('navigator ', navigator);
-    // roots.set('screen', screen);
-    // roots.set('history', history);
-    // roots.set('location', location);
-    // roots.set('Array', Array);
-    // roots.set('Number', Number);
-    return roots;
-}
+
 function SetDrawBoard(tagName: string): Node {
     let canvas: Node;
     if (document.getElementsByTagName(tagName).length > 0) {
@@ -46,95 +52,83 @@ function SetDrawBoard(tagName: string): Node {
     return canvas;
 
 }
-function drawAPI(canvas: Node) {
+function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
 
-    for (const iterator of roots) {
-
+    for (const item of roots) {
 
         let spet = document.createElement('p');
 
-        spet.innerText = `🌺 ${iterator[0]} 🌺`
+        spet.innerText = `🌺 ${item["1"].descripion} 🌺`
 
         canvas.appendChild(spet);
-        if (iterator[1].prototype != undefined) {
-            for (const key in Object.getOwnPropertyDescriptors(iterator[1].prototype)) {
 
-                let div = document.createElement('span');
-                let filedName = document.createElement('span');
-                let svg = document.createElement('embed');
-                div.appendChild(svg);
+        if (item["1"].Prototype != undefined) {
+            // for (const key in Object.getOwnPropertyDescriptors(iterator['1'].Prototype)) {
 
-                svg.width = side;
-                svg.height = side;
-                let type = typeof iterator[1].prototype[key];
-                if (type == 'function') {
-                    svg.src = path + SVGPath.Function.toString();
-                } else if (type == 'object') {
-                    svg.src = path + SVGPath.Class.toString();
-                    if (isEvent(key)) {
-                        svg.src = path + SVGPath.Event.toString();
-                    }
-                }
-                else if (type == 'number' || type == 'string' || type == 'boolean') {
-                    svg.src = path + SVGPath.Field.toString();
+            //     let div = document.createElement('span');
+            //     let filedName = document.createElement('span');
+            //     let svg = document.createElement('embed');
+            //     div.appendChild(svg);
 
-                }
-                // else if (type == 'boolean') {
-                //     svg.src = path + SVGPath.Field.toString();
-                // }
+            //     svg.width = side;
+            //     svg.height = side;
+            //     let type = typeof iterator[1].prototype[key];
+            //     if (type == 'function') {
+            //         svg.src = path + SVGPath.Function.toString();
+            //     } else if (type == 'object') {
+            //         svg.src = path + SVGPath.Class.toString();
+            //         if (isEvent(key)) {
+            //             svg.src = path + SVGPath.Event.toString();
+            //         }
+            //     }
+            //     else if (type == 'number' || type == 'string' || type == 'boolean') {
+            //         svg.src = path + SVGPath.Field.toString();
 
-                if (isConst(key)) {
+            //     }
+            //     // else if (type == 'boolean') {
+            //     //     svg.src = path + SVGPath.Field.toString();
+            //     // }
 
-                    let svgConst = document.createElement('embed');
-                    svgConst.width = side;
-                    svgConst.height = side;
-                    svgConst.src = path + SVGPath.Constant.toString();
-                    div.appendChild(svgConst);
-                }
+            //     if (isConst(key)) {
+
+            //         let svgConst = document.createElement('embed');
+            //         svgConst.width = side;
+            //         svgConst.height = side;
+            //         svgConst.src = path + SVGPath.Constant.toString();
+            //         div.appendChild(svgConst);
+            //     }
 
 
-                div.appendChild(filedName);
-                filedName.innerHTML = key;
-                canvas.appendChild(div);
-            }
+            //     div.appendChild(filedName);
+            //     filedName.innerHTML = key;
+            //     canvas.appendChild(div);
+            // }
         } else {
-            for (const key in iterator[1]) {
-                //表示含有原型属性
+
+            let originalObj = item[1].object
+            for (const key in originalObj) {
+
                 let div = document.createElement('span');
                 let filedName = document.createElement('span');
-                let svg = document.createElement('embed');
-
-                div.appendChild(svg);
 
 
-                svg.width = side;
-                svg.height = side;
-                let type = typeof iterator[1][key];
+                let type = typeof originalObj[key];
+
+
                 if (type == 'function') {
-                    svg.src = path + SVGPath.Function.toString();
+                    div.appendChild(embedSVG(SVGType.Function));
+                } else if (type == 'object' && isEvent(key)) {
+                    div.appendChild(embedSVG(SVGType.Event));
                 } else if (type == 'object') {
-                    svg.src = path + SVGPath.Class.toString();
-                    if (isEvent(key)) {
-                        svg.src = path + SVGPath.Event.toString();
-                    }
+                    div.appendChild(embedSVG(SVGType.Class));
+                } else if (type == 'number' || type == 'string' || type == 'boolean') {
+                    div.appendChild(embedSVG(SVGType.Field));
                 }
-                else if (type == 'number' || type == 'string' || type == 'boolean') {
-                    svg.src = path + SVGPath.Field.toString();
-
-                }
-                // else if (type == 'boolean') {
-                //     svg.src = path + SVGPath.Field.toString();
-                // }
 
                 if (isConst(key)) {
-
-                    let svgConst = document.createElement('embed');
-                    svgConst.width = side;
-                    svgConst.height = side;
-                    svgConst.src = path + SVGPath.Constant.toString();
-                    div.appendChild(svgConst);
+                    
+                    div.appendChild(embedSVG(SVGType.Constant));
                 }
-
 
                 div.appendChild(filedName);
                 filedName.innerHTML = key;
@@ -148,10 +142,6 @@ function drawAPI(canvas: Node) {
 
 
 
-const canvas = SetDrawBoard('body');
-const roots = initTreeRoot();
-const side: string = `32`;
-drawAPI(canvas);
 
 
 

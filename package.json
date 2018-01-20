@@ -5,13 +5,14 @@
   "main": "",
   "scripts": {
     "build": "tsc webpack.config.ts && webpack -w",
-    "server": "tsc webpack.config.ts && webpack-dev-server --open"  
+    "server": "tsc webpack.config.ts && webpack-dev-server --open"
   },
   "author": "bn",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^8.5.2",
     "css-loader": "^0.28.8",
+    "recursive-copy": "^2.0.8",
     "style-loader": "^0.19.1",
     "svg-url-loader": "^2.3.1",
     "ts-loader": "^3.2.0",

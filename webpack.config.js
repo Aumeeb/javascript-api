@@ -1,13 +1,15 @@
 "use strict";
 exports.__esModule = true;
 var path = require("path");
-var outputFolder = 'build'; //文件的输出的文件夹
+var autotruck_1 = require("./src/server/autotruck");
+autotruck_1.copyResources();
 var outerIP = '117.62.230.235';
 var innerIP = '127.0.0.1';
 var config = {
-    entry: ['./src/index.ts', './src/data'],
+    devtool: 'source-map',
+    entry: ['./src/index.ts'],
     output: {
-        path: path.resolve(__dirname, outputFolder),
+        path: path.resolve(__dirname, autotruck_1.outputFolder),
         filename: 'bundle.js'
     },
     resolve: {
@@ -22,7 +24,7 @@ var config = {
         ]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, outputFolder),
+        contentBase: path.resolve(__dirname, autotruck_1.outputFolder),
         host: innerIP,
         compress: true,
         port: 2222 //端口
