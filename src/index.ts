@@ -113,9 +113,9 @@ function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
             canvas.appendChild(spet);
 
             
-            for (const key in Object.getOwnPropertyDescriptors(item['1'].Prototype)) {
-                drawAnObject(canvas, typeof (item["1"].Prototype as any)[key], key)
-            }
+            // for (const key in Object.getOwnPropertyDescriptors(item['1'].Prototype)) {
+            //     drawAnObject(canvas, typeof (item["1"].Prototype as any)[key], key)
+            // }
 
         }
     }

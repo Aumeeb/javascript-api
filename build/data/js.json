@@ -1,18 +1,38 @@
 [
     {
-        "name": "screen"
+        "key": 1,
+        "name": "Window"
     },
     {
-        "name": "history"
-    },
-    {
-        "name": "location"
-    },
-    {
+        "key": 2,
         "name": "Array"
     },
     {
+        "key": 3,
         "name": "Number"
+    },
+    {
+        "key": 4,
+        "name": "String"
+    },
+    {
+        "key": 5,
+        "name": "Boolean"
+    },
+    {
+        "key": 6,
+        "name": "Date"
+    },
+    {
+        "key": 7,
+        "name": "Error"
+    },
+    {
+        "key": 8,
+        "name": "Infinity"
+    },
+    {
+        "key": 9,
+        "name": "Function"
     }
 ]
-
