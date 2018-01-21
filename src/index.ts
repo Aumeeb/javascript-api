@@ -10,7 +10,7 @@ interface OriginalObject {
     [Prototype: string]: any;
     object: any;
     Prototype: undefined | object;
-
+    OwnPropertyDescriptors : object;
     descripion?: string;
     readonlys?: string[];
     events?: string[];
@@ -33,7 +33,8 @@ Http.get(DataUrl.getJsSysAPI).then((value: Response) => {
                 roots.set(p.name, new class implements OriginalObject {
                     object = eval(p.name);
                     Prototype = eval(`${p.name}.prototype`);
-                    descripion = p.name
+                    descripion = p.name;
+                    OwnPropertyDescriptors = eval(`Object.getOwnPropertyDescriptors(${p.name})`) ;
                 })
             }
         )
@@ -72,7 +73,7 @@ function drawAnObject(canvas: Node, type: BaseType, key: string) {
     }
 
 
-
+ 
 
 
     div.appendChild(filedName);
@@ -84,7 +85,7 @@ function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
     for (const item of roots) {
 
         let spet = document.createElement('p');
-        spet.innerText = `🌺 ${item["1"].descripion} 🌺`
+        spet.innerText = `🥇 ${item["1"].descripion} Property  🥇`
         canvas.appendChild(spet);
 
         let originalObj = item["1"].object;
@@ -93,12 +94,25 @@ function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
             drawAnObject(canvas, typeof originalObj[key], key)
         }
 
-        if (item["1"].Prototype != undefined) {
+        if (item["1"].OwnPropertyDescriptors != undefined) {
             let spet = document.createElement('p');
             spet.style.paddingLeft = '100px';
-            spet.innerText = `🌸 Prototype  Property 🌸`
+            spet.innerText = `🥈 ${item["1"].descripion} OwnPropertyDescriptors 🥈`
             canvas.appendChild(spet);
 
+            for (const key in item["1"].OwnPropertyDescriptors) {
+                drawAnObject(canvas, typeof (item["1"].OwnPropertyDescriptors as any)[key], key)
+            }
+
+        }
+         
+        if (item["1"].Prototype != undefined) {
+            let spet = document.createElement('p');
+            spet.style.paddingLeft = '200px';
+            spet.innerText = `🥉 ${item["1"].descripion} Prototype OwnPropertyDescriptors 🥉`
+            canvas.appendChild(spet);
+
+            
             for (const key in Object.getOwnPropertyDescriptors(item['1'].Prototype)) {
                 drawAnObject(canvas, typeof (item["1"].Prototype as any)[key], key)
             }
@@ -106,14 +120,6 @@ function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
         }
     }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -126,5 +132,3 @@ function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
 // }
 // var x =[1].concat([2]);
 // var z =Object.assign({name:1},{age:2});
-
-

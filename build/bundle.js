@@ -67,26 +67,38 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(1);
+(function webpackMissingModule() { throw new Error("Cannot find module \"0v\""); }());
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const svg_1 = __webpack_require__(1);
-const stringValidate_1 = __webpack_require__(2);
-function initTreeRoot() {
-    const roots = new Map();
-    roots.set('window', new class {
-        constructor() {
-            this.object = window;
-        }
+const svg_1 = __webpack_require__(2);
+const stringValidate_1 = __webpack_require__(3);
+const fetch_1 = __webpack_require__(4);
+fetch_1.Http.get(fetch_1.DataUrl.getJsSysAPI).then((value) => {
+    value.json().then((api) => {
+        const canvas = SetDrawBoard('body');
+        const side = `32`;
+        const roots = new Map();
+        api.forEach(p => {
+            roots.set(p.name, new class {
+                constructor() {
+                    this.object = eval(p.name);
+                    this.Prototype = eval(`${p.name}.prototype`);
+                    this.descripion = p.name;
+                    this.OwnPropertyDescriptors = eval(`Object.getOwnPropertyDescriptors(${p.name})`);
+                }
+            });
+        });
+        drawAPI(canvas, roots);
     });
-    // roots.set('navigator ', navigator);
-    // roots.set('screen', screen);
-    // roots.set('history', history);
-    // roots.set('location', location);
-    // roots.set('Array', Array);
-    // roots.set('Number', Number);
-    return roots;
-}
+});
 function SetDrawBoard(tagName) {
     let canvas;
     if (document.getElementsByTagName(tagName).length > 0) {
@@ -97,90 +109,57 @@ function SetDrawBoard(tagName) {
     }
     return canvas;
 }
-function drawAPI(canvas) {
-    for (const iterator of roots) {
+function drawAnObject(canvas, type, key) {
+    let div = document.createElement('span');
+    let filedName = document.createElement('span');
+    if (type == 'function') {
+        div.appendChild(svg_1.embedSVG(svg_1.SVGType.Function));
+    }
+    else if (type == 'object' && stringValidate_1.isEvent(key)) {
+        div.appendChild(svg_1.embedSVG(svg_1.SVGType.Event));
+    }
+    else if (type == 'object') {
+        div.appendChild(svg_1.embedSVG(svg_1.SVGType.Class));
+    }
+    else if (stringValidate_1.isConst(key)) {
+        div.appendChild(svg_1.embedSVG(svg_1.SVGType.Constant));
+    }
+    else if (type == 'number' || type == 'string' || type == 'boolean') {
+        div.appendChild(svg_1.embedSVG(svg_1.SVGType.Field));
+    }
+    div.appendChild(filedName);
+    filedName.innerHTML = key;
+    canvas.appendChild(div);
+}
+function drawAPI(canvas, roots) {
+    for (const item of roots) {
         let spet = document.createElement('p');
-        spet.innerText = `🌺 ${iterator[0]} 🌺`;
+        spet.innerText = `🥇 ${item["1"].descripion} Property  🥇`;
         canvas.appendChild(spet);
-        if (iterator[1].prototype != undefined) {
-            for (const key in Object.getOwnPropertyDescriptors(iterator[1].prototype)) {
-                let div = document.createElement('span');
-                let filedName = document.createElement('span');
-                let svg = document.createElement('embed');
-                div.appendChild(svg);
-                svg.width = side;
-                svg.height = side;
-                let type = typeof iterator[1].prototype[key];
-                if (type == 'function') {
-                    svg.src = svg_1.path + svg_1.SVGPath.Function.toString();
-                }
-                else if (type == 'object') {
-                    svg.src = svg_1.path + svg_1.SVGPath.Class.toString();
-                    if (stringValidate_1.isEvent(key)) {
-                        svg.src = svg_1.path + svg_1.SVGPath.Event.toString();
-                    }
-                }
-                else if (type == 'number' || type == 'string' || type == 'boolean') {
-                    svg.src = svg_1.path + svg_1.SVGPath.Field.toString();
-                }
-                // else if (type == 'boolean') {
-                //     svg.src = path + SVGPath.Field.toString();
-                // }
-                if (stringValidate_1.isConst(key)) {
-                    let svgConst = document.createElement('embed');
-                    svgConst.width = side;
-                    svgConst.height = side;
-                    svgConst.src = svg_1.path + svg_1.SVGPath.Constant.toString();
-                    div.appendChild(svgConst);
-                }
-                div.appendChild(filedName);
-                filedName.innerHTML = key;
-                canvas.appendChild(div);
+        let originalObj = item["1"].object;
+        for (const key in originalObj) {
+            drawAnObject(canvas, typeof originalObj[key], key);
+        }
+        if (item["1"].OwnPropertyDescriptors != undefined) {
+            let spet = document.createElement('p');
+            spet.style.paddingLeft = '100px';
+            spet.innerText = `🥈 ${item["1"].descripion} OwnPropertyDescriptors 🥈`;
+            canvas.appendChild(spet);
+            for (const key in item["1"].OwnPropertyDescriptors) {
+                drawAnObject(canvas, typeof item["1"].OwnPropertyDescriptors[key], key);
             }
         }
-        else {
-            for (const key in iterator[1]) {
-                //表示含有原型属性
-                let div = document.createElement('span');
-                let filedName = document.createElement('span');
-                let svg = document.createElement('embed');
-                div.appendChild(svg);
-                svg.width = side;
-                svg.height = side;
-                let type = typeof iterator[1][key];
-                if (type == 'function') {
-                    svg.src = svg_1.path + svg_1.SVGPath.Function.toString();
-                }
-                else if (type == 'object') {
-                    svg.src = svg_1.path + svg_1.SVGPath.Class.toString();
-                    if (stringValidate_1.isEvent(key)) {
-                        svg.src = svg_1.path + svg_1.SVGPath.Event.toString();
-                    }
-                }
-                else if (type == 'number' || type == 'string' || type == 'boolean') {
-                    svg.src = svg_1.path + svg_1.SVGPath.Field.toString();
-                }
-                // else if (type == 'boolean') {
-                //     svg.src = path + SVGPath.Field.toString();
-                // }
-                if (stringValidate_1.isConst(key)) {
-                    let svgConst = document.createElement('embed');
-                    svgConst.width = side;
-                    svgConst.height = side;
-                    svgConst.src = svg_1.path + svg_1.SVGPath.Constant.toString();
-                    div.appendChild(svgConst);
-                }
-                div.appendChild(filedName);
-                filedName.innerHTML = key;
-                canvas.appendChild(div);
+        if (item["1"].Prototype != undefined) {
+            let spet = document.createElement('p');
+            spet.style.paddingLeft = '200px';
+            spet.innerText = `🥉 ${item["1"].descripion} Prototype OwnPropertyDescriptors 🥉`;
+            canvas.appendChild(spet);
+            for (const key in Object.getOwnPropertyDescriptors(item['1'].Prototype)) {
+                drawAnObject(canvas, typeof item["1"].Prototype[key], key);
             }
         }
     }
 }
-const canvas = SetDrawBoard('body');
-const roots = initTreeRoot();
-const side = `32`;
-drawAPI(canvas);
 // for (const key in Object.getOwnPropertyDescriptors(Array) ) {
 //     console.error(key);
 // }
@@ -193,30 +172,40 @@ drawAPI(canvas);
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.path = './resource/';
-var SVGPath;
-(function (SVGPath) {
-    SVGPath["Class"] = "class.svg";
-    SVGPath["CodeSegment"] = "codesegments.svg";
-    SVGPath["Constant"] = "const.svg";
-    SVGPath["Enum"] = "enum.svg";
-    SVGPath["Field"] = "field.svg";
-    SVGPath["Function"] = "function.svg";
-    SVGPath["Interface"] = "interface.svg";
-    SVGPath["Keyword"] = "keyword.svg";
-    SVGPath["Namespace"] = "namespace.svg";
-    SVGPath["Event"] = "event.svg";
-})(SVGPath = exports.SVGPath || (exports.SVGPath = {}));
+var SVGType;
+(function (SVGType) {
+    SVGType["Class"] = "class.svg";
+    SVGType["CodeSegment"] = "codesegments.svg";
+    SVGType["Constant"] = "const.svg";
+    SVGType["Enum"] = "enum.svg";
+    SVGType["Field"] = "field.svg";
+    SVGType["Function"] = "function.svg";
+    SVGType["Interface"] = "interface.svg";
+    SVGType["Keyword"] = "keyword.svg";
+    SVGType["Namespace"] = "namespace.svg";
+    SVGType["Event"] = "event.svg";
+})(SVGType = exports.SVGType || (exports.SVGType = {}));
+/** SVG  width&height px*/
+const side = '32';
+function embedSVG(type) {
+    let embed = document.createElement('embed');
+    embed.width = side;
+    embed.height = side;
+    embed.src = exports.path + type;
+    return embed;
+}
+exports.embedSVG = embedSVG;
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -237,5 +226,25 @@ function isEvent(str) {
 exports.isEvent = isEvent;
 
 
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class Http {
+    static get(path) {
+        return fetch(path);
+    }
+}
+exports.Http = Http;
+class DataUrl {
+}
+DataUrl.getJsSysAPI = './data/js.json';
+exports.DataUrl = DataUrl;
+
+
 /***/ })
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
