@@ -16,7 +16,7 @@ export interface JsSysAPI {
 }
 
 export interface IHomeProps {
-    suffix: string;
+    suffix?: string;
     
 }
 

@@ -1,4 +1,5 @@
-export class StylePrefix {
+/** 样式防重名*/
+export class StyleAntiCollision {
     constructor(private _prefix: string, private _suffix?: string) { }
       /**
      * 在输入的样式名称前面追加样式前缀，防止多页面样式冲突

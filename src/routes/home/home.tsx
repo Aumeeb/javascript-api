@@ -6,7 +6,7 @@ import { embedSVG, SVGType, SVGSrc } from "../../tools/svg";
 import { isConst, isEvent } from "../../tools/stringValidate";
 import { IHomeProps, IHomeState, JsSysAPI, OriginalObject } from "./homeTypes";
 import { ClickParam } from "../../../node_modules/antd/lib/menu/index";
-import { StylePrefix } from "../../tools/stylePrefix";
+import { StyleAntiCollision } from "../../tools/stylePrefix";
 
 import './index.less';
 
@@ -14,7 +14,7 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const side = '32';
 
-const s=new StylePrefix('Xhome','Xhome');
+const s=new StyleAntiCollision('Xhome','Xhome');
 class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
         super(props);
