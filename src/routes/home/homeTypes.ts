@@ -17,8 +17,10 @@ export interface JsSysAPI {
 
 export interface IHomeProps {
     suffix: string;
+    
 }
 
 export interface IHomeState {
     data: JsSysAPI[];
+    currentObject?: OriginalObject;
 }

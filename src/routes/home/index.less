@@ -1,18 +1,32 @@
 
-@suffix:Xhome;
+@suffix : Xhome;
 
+@navWidth : 300px;
 #home@{suffix}{
      margin-top: 10px;
-     
+     overflow: hidden;
+
     >div:nth-child(1){
-        width: 25%;
-        display: inline-block;
+        width: @navWidth;
+        float: left;
 
     };
     >div:nth-child(2){
-        width: 75%;
-        display: inline-block;
-        color: blueviolet;
+        width: calc(~'100% - @{navWidth}');
+         float: left;
+        color: black;
     };
 }
- 
+ .propertyTitle@{suffix}{
+    font-size: 32px;
+    margin-right: 10px;
+ }
+
+ .propertyName@{suffix}{
+    position: relative  ;
+    top: -3px;
+    font-size: 32px;
+    padding-left: 10px;
+    width: 16.6666667%;
+    display: inline-block;
+}

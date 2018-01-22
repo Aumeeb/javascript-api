@@ -34,5 +34,9 @@
     {
         "key": 9,
         "name": "Function"
+    },
+    {
+        "key": 10,
+        "name": "window"
     }
 ]
