@@ -14,7 +14,7 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const side = '32';
 
-const s=new StyleAntiCollision('Xhome','Xhome');
+const s = new StyleAntiCollision('Xhome', 'Xhome');
 class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
         super(props);
@@ -23,12 +23,15 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             data: [],
             currentObject: undefined
         }
-        Http.get(DataUrl.getJsSysAPI).then(value => {
-            value.json().then((item: JsSysAPI[]) => {
-                this.setState({ data: item });
-            })
-        })
 
+        this.getAPI();
+
+
+    }
+    async getAPI() {
+        var response = await Http.get(DataUrl.getJsSysAPI);
+        var reuslt = await response.json() as JsSysAPI[]
+        this.setState({ data: reuslt });
     }
     createProperty = (oo: OriginalObject | undefined) => {
 
@@ -62,7 +65,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         } else if (type == 'number' || type == 'string' || type == 'boolean') {
             svgSrc = SVGSrc(SVGType.Field)
         }
-        return <embed   className={s.suffix('propertyTitle')} src={svgSrc} width={side} height={side}></embed>;
+        return <embed className={s.suffix('propertyTitle')} src={svgSrc} width={side} height={side}></embed>;
     }
 
     handleClick = (e: ClickParam) => {
