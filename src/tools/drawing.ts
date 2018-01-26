@@ -1,7 +1,6 @@
 import { SVGType, path, embedSVG } from "./svg";
 import { isConst, isEvent } from "./stringValidate";
 import { IObjectInfo } from "./statistics";
-import { Http, DataUrl } from "./fetch";
 import { OriginalObject } from "../routes/home/homeTypes";
 export type BaseType = "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function";
 

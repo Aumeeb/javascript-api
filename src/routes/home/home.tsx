@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Menu, Icon } from 'antd';
-import { Http, DataUrl } from "../../tools/fetch";
+import { get, DataUrl } from "../../data/fetch";
 import { drawAPI, BaseType } from "../../tools/drawing";
 import { embedSVG, SVGType, SVGSrc } from "../../tools/svg";
 import { isConst, isEvent } from "../../tools/stringValidate";
@@ -24,15 +24,13 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             currentObject: undefined
         }
 
-        this.getAPI();
+        get<JsSysAPI[]>(DataUrl.JsSysAPIAddress).then(data=>{
+            this.setState({ data: data });
+        })
 
 
     }
-    async getAPI() {
-        var response = await Http.get(DataUrl.getJsSysAPI);
-        var reuslt = await response.json() as JsSysAPI[]
-        this.setState({ data: reuslt });
-    }
+ 
     createProperty = (oo: OriginalObject | undefined) => {
 
         var Properties = [];

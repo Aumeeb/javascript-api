@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Menu, Icon } from "antd";
 import { ClickParam } from "../../../../node_modules/antd/lib/menu/index";
+import Weather from "../weather/weather";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -24,8 +25,11 @@ class Header extends React.Component<any, any> {
     render() {
         return (
             <div>
+                <div>
+                    <Weather />
+                </div>
                 <Menu
-                    style={{lineHeight:'80px'}}
+                    style={{ lineHeight: '80px' }}
                     onClick={this.handleClick}
                     selectedKeys={[this.state.current]}
                     mode="horizontal">

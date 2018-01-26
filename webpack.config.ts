@@ -28,7 +28,8 @@ const config: webpack.Configuration = {
             {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
             { test: /\.svg/, loader: 'svg-url-loader' },
             { test: /\.ts$/, loader: 'ts-loader' },
-            { test: /\.tsx$/, loader: 'ts-loader' },
+            { test: /\.tsx$/, loader:  'babel-loader!ts-loader' },
+        
         ],
 
     },
