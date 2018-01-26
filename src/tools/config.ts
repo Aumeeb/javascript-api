@@ -1,0 +1,1 @@
+export const $img: any = './resource/images/';
