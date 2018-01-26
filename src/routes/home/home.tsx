@@ -14,7 +14,7 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const side = '32';
 
-const s = new StyleAntiCollision('Xhome', 'Xhome');
+const s = new StyleAntiCollision('Xhome');
 class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
         super(props);

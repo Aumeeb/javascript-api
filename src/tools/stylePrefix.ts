@@ -1,10 +1,14 @@
 /** 样式防重名*/
 export class StyleAntiCollision {
-    constructor(private _prefix: string, private _suffix?: string) { }
-      /**
-     * 在输入的样式名称前面追加样式前缀，防止多页面样式冲突
-     * @param className 样式名称
-     */
+    constructor(private _prefix: string, private _suffix?: string) {
+        if (_suffix == undefined) {
+            this._suffix = _prefix;
+        }
+    }
+    /**
+   * 在输入的样式名称前面追加样式前缀，防止多页面样式冲突
+   * @param className 样式名称
+   */
     prefix(className: string) {
         return this._prefix + className
     }

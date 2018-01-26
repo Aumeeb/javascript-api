@@ -4,13 +4,23 @@ import * as React from "react";
 import { Menu, Icon } from "antd";
 import { ClickParam } from "../../../../node_modules/antd/lib/menu/index";
 import Weather from "../weather/weather";
+import { StyleAntiCollision } from "../../../tools/stylePrefix";
+
+import './index.less';
+import { $img } from "../../../tools/config";
+
+
+
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
+
+const s= new StyleAntiCollision('header');
 class Header extends React.Component<any, any> {
     constructor(props: any) {
         super(props)
-
+         
         this.state = {
             current: 'mail',
         }
@@ -25,8 +35,10 @@ class Header extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <div>
+                <div  className={s.suffix('header_nav')}>
                     <Weather />
+                    <a href="./login">注册</a>
+                    <a href="./register">登陆</a>
                 </div>
                 <Menu
                     style={{ lineHeight: '80px' }}
