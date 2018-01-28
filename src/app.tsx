@@ -3,18 +3,40 @@ import * as ReactDOM from 'react-dom';
 import Home from "./routes/home/home";
 import Header from "./routes/components/header/header";
 import Footer from "./routes/components/footer/footer";
+import { Router, Route, Switch } from "react-router";
+import * as H from 'history';
+import { RouteLinkAddress, RouteSimpleType } from "./tools/config";
+import Login from './routes/login/login';
 import './app.less';
-class App extends React.Component{
+
+const RouteFor = (address: RouteSimpleType) => {
+    return address.map(item => {
+        if (item.key == 1) {
+            return <Route exact key={item.key} path={item.path} component={item.component} ></Route>
+        } else {
+            return <Route key={item.key} path={item.path} component={item.component} ></Route>
+        }
+    }
+    )
+}
+
+class App extends React.Component {
+
     render() {
         return (
-            <div>
-                <Header/>
-                <Home  suffix='Xhome'  />
-                <Footer/>
-            </div>
+            <Router history={H.createHashHistory()}>
+                <div>
+                    <Header />
+                    <Switch>
+                        {RouteFor(RouteLinkAddress)}
+                    </Switch>
+                    <Footer />
+                </div>
+            </Router>
         );
     }
 }
+
 
 ReactDOM.render(
     <App />,

@@ -10,6 +10,10 @@ import { StyleAntiCollision } from "../../tools/stylePrefix";
 
 import './index.less';
 
+
+
+
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const side = '32';
@@ -101,7 +105,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
                         mode="inline">
-                        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>系统对象</span></span>}>
+                        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>系統對象</span></span>}>
                             {data.map(p => {
                                 return <Menu.Item key={p.key}>{p.name}</Menu.Item>
                             })}
