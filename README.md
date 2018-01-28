@@ -19,11 +19,11 @@ npm run dev
 1 ,如果命令行在生成的时候服务器卡住,可以用键盘按下任意键,命令行可以获得焦点继续编译 
 
 
-# 🌌项目截图🌌
+# 🌌项目截图 snapshot🌌
 
 
-# 第一版🐷
+# 第一版 version 1 🐷
 <img src='./src/gitsource/show1.png' />
 
-# 第二版🐷🐷
+# 第二版 version 2 🐷🐷
 <img src='./src/gitsource/show2.png' />
