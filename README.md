@@ -1,9 +1,12 @@
-# javascript-api
+#🦄javascript-api🦄
+项目功能正在持续更新, 欢迎大家学习探讨
+
 
 #🏆技术点🏆
 TypeScript
 React 16.2 
 React-Router 4.x
+antd 3.x
 国际化语言
 Redux
 
