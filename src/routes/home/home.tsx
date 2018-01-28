@@ -105,18 +105,18 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
                         mode="inline">
-                        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>系統對象</span></span>}>
+                        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>システムオブジェクト</span></span>}>
                             {data.map(p => {
                                 return <Menu.Item key={p.key}>{p.name}</Menu.Item>
                             })}
 
                         </SubMenu>
-                        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>关键字</span></span>}>
+                        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>キーワード</span></span>}>
                             <Menu.Item key="5">var</Menu.Item>
                             <Menu.Item key="6">let</Menu.Item>
                             <Menu.Item key="6">const</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>新特性</span></span>}>
+                        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>新しい特性</span></span>}>
                             <Menu.Item key="9">@</Menu.Item>
 
                         </SubMenu>
