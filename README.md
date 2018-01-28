@@ -22,8 +22,8 @@ npm run dev
 # 🌌项目截图 snapshot🌌
 
 
-# 第一版 version 1 🐷
+# 📖第一版📖 version 1 🐷
 <img src='./src/gitsource/show1.png' />
 
-# 第二版 version 2 🐷🐷
+# 📖第二版📖 version 2 🐷🐷
 <img src='./src/gitsource/show2.png' />
