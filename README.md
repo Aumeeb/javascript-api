@@ -1,12 +1,18 @@
 # javascript-api
 
-
-Typescript
+#使用技术
+TypeScript
 React 16.2 
 React-Router 4.x
+国际化语言
+Redux
 
+#启动项目 
 
-启动项目 npm run dev
+npm run dev
+
+##note 
+1 ,如果命令行在生成的时候服务器卡住,可以用键盘按下任意键,命令行可以获得焦点继续编译 
 
 
 ##项目截图
