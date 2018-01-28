@@ -22,8 +22,8 @@ npm run dev
 # 🌌项目截图🌌
 
 
-#第一版🐷
+# 第一版🐷
 <img src='./src/gitsource/show1.png' />
 
-#第二版🐷🐷
+# 第二版🐷🐷
 <img src='./src/gitsource/show2.png' />
