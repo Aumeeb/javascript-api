@@ -14,13 +14,17 @@ export interface JsSysAPI {
     name: string
     key: number;
 }
-
+export interface KeywordData {
+    name: string
+    key: number;
+}
 export interface IHomeProps {
     suffix?: string;
     
 }
 
 export interface IHomeState {
+    keywordData:KeywordData[];
     data: JsSysAPI[];
     currentObject?: OriginalObject;
 }

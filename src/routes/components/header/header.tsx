@@ -1,7 +1,7 @@
 
 
 import * as React from "react";
-import { Menu, Icon } from "antd";
+import { Menu, Icon, Input } from "antd";
 import { ClickParam } from "../../../../node_modules/antd/lib/menu/index";
 import Weather from "../weather/weather";
 import { StyleAntiCollision } from "../../../tools/stylePrefix";
@@ -11,7 +11,7 @@ import './index.less';
 
 
 
-
+const Search = Input.Search;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -22,29 +22,35 @@ class Header extends React.Component<any, any> {
         super(props)
 
         this.state = {
-            current: 'mail',
+            current: 'home',
             name: 'Eric',
             unreadCount: 1000,
         }
     }
 
     handleClick = (e: ClickParam) => {
-        console.log('click ', e);
-        this.setState({
-            current: e.key,
-        });
+        if(e.key == 'home'){
+            location.href='/';
+        }
+        this.setState({ current: e.key });
     }
     render() {
-        const { name, unreadCount } = this.state;
+
         return (
-            <div>
+            <div className={s.suffix('header_Wrapper')}>
+
                 <div className={s.suffix('header_nav')}>
-                    <div>
+                    <div >
                         <Weather />
+                        <div className={s.suffix('nav')}>
+                            <span><a href="/#/article">文章</a></span>
+                        </div>
+
                     </div>
                     <div>
-                        <a href="/#/login">註冊</a>
-                        <a href="/#/register">登入</a>
+                        <Search placeholder="檢索" onSearch={value => console.log(value)} className={s.suffix('search')} />
+                        <a href="/#/login">登入</a>
+                        <a href="/#/register">註冊</a>
                     </div>
                 </div>
                 <Menu
@@ -52,20 +58,23 @@ class Header extends React.Component<any, any> {
                     onClick={this.handleClick}
                     selectedKeys={[this.state.current]}
                     mode="horizontal">
+                    <Menu.Item key="home" >
+                        <Icon type="home" spin />首頁
+                    </Menu.Item>
                     <Menu.Item key="mail" >
-                        <Icon type="mail" />手紙を書く
+                        <Icon type="mail" spin />寫信
                     </Menu.Item>
                     <Menu.Item key="app" >
-                        <Icon type="appstore" />ナビゲーション
+                        <Icon type="appstore" spin />功能
                    </Menu.Item>
-                    <SubMenu title={<span><Icon type="setting" />メニュー</span>}>
-                        <MenuItemGroup title="Item 1">
-                            <Menu.Item key="setting:1">API</Menu.Item>
-                            <Menu.Item key="setting:2">报错</Menu.Item>
+                    <SubMenu title={<span><Icon type="setting" spin />設置</span>}>
+                        <MenuItemGroup title="介面">
+                            <Menu.Item key="setting:1">皮膚</Menu.Item>
+                            <Menu.Item key="setting:2">糾錯</Menu.Item>
                         </MenuItemGroup>
                     </SubMenu>
                     <Menu.Item key="alipay">
-                        <Icon type="github" />GITHUB
+                        <Icon type="github" spin />GITHUB
                     </Menu.Item>
                 </Menu>
             </div>

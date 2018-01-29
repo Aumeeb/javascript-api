@@ -1,42 +1,42 @@
 [
     {
-        "key": 1,
+        "key": "520A6B83-1553-CDFC-31EE-C202224E00CB",
         "name": "Window"
     },
     {
-        "key": 2,
+        "key": "CBF13D76-A0B8-7BCB-485F-5E27943DCFCA",
         "name": "Array"
     },
     {
-        "key": 3,
+        "key": "92517800-0BD2-CB56-2796-83114F3CDC77",
         "name": "Number"
     },
     {
-        "key": 4,
+        "key": "A9960941-CF68-F4A5-89B9-A5E7743901BA",
         "name": "String"
     },
     {
-        "key": 5,
+        "key": "2A7CD903-4A67-5B18-6901-9B61A6E866EB",
         "name": "Boolean"
     },
     {
-        "key": 6,
+        "key": "59D3AE2D-01F5-0A6C-B4CC-ACF16D6F3DA7",
         "name": "Date"
     },
     {
-        "key": 7,
+        "key": "50733007-55C0-EDC1-000A-33DA0B2C06F1",
         "name": "Error"
     },
     {
-        "key": 8,
+        "key": "1B7FEF55-B611-C45D-45DF-76A6EEF557AD",
         "name": "Infinity"
     },
     {
-        "key": 9,
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B860",
         "name": "Function"
     },
     {
-        "key": 10,
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48143",
         "name": "window"
     }
 ]

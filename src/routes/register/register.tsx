@@ -104,7 +104,7 @@ class Register extends React.Component<any, any> {
         const prefixSelector = getFieldDecorator('prefix', {
           initialValue: '86',
         })(
-          <Select style={{ width: 70 }}>
+          <Select style={{ width: 80 }}>
             <Option value="86">+86</Option>
             <Option value="87">+87</Option>
           </Select>
@@ -122,9 +122,9 @@ class Register extends React.Component<any, any> {
             >
               {getFieldDecorator('email', {
                 rules: [{
-                  type: 'email', message: 'The input is not valid E-mail!',
+                  type: 'email', message: '請輸入有效的郵箱!',
                 }, {
-                  required: true, message: 'Please input your E-mail!',
+                  required: true, message: '請輸入您的郵箱!',
                 }],
               })(
                 <Input />
@@ -132,11 +132,11 @@ class Register extends React.Component<any, any> {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="密码"
+              label="密碼"
             >
               {getFieldDecorator('password', {
                 rules: [{
-                  required: true, message: 'Please input your password!',
+                  required: true, message: '請輸入您的密碼!',
                 }, {
                   validator: this.checkConfirm,
                 }],
@@ -146,11 +146,11 @@ class Register extends React.Component<any, any> {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="确认密码"
+              label="確認密碼"
             >
               {getFieldDecorator('confirm', {
                 rules: [{
-                  required: true, message: 'Please confirm your password!',
+                  required: true, message: '請確認您的密碼!',
                 }, {
                   validator: this.checkPassword,
                 }],
@@ -162,15 +162,15 @@ class Register extends React.Component<any, any> {
               {...formItemLayout}
               label={(
                 <span>
-                  昵称&nbsp;
-                  <Tooltip title="What do you want others to call you?">
+                  暱稱&nbsp;
+                  <Tooltip title="你希望別人如何稱呼您?">
                     <Icon type="question-circle-o" />
                   </Tooltip>
                 </span>
               )}
             >
               {getFieldDecorator('nickname', {
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: '請輸入您的暱稱!', whitespace: true }],
               })(
                 <Input />
               )}
@@ -178,10 +178,10 @@ class Register extends React.Component<any, any> {
    
             <FormItem
               {...formItemLayout}
-              label="电话"
+              label="電話"
             >
               {getFieldDecorator('phone', {
-                rules: [{ required: true, message: 'Please input your phone number!' }],
+                rules: [{ required: true, message: '請輸入您的電話號碼!' }],
               })(
                 <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
               )}
@@ -189,31 +189,25 @@ class Register extends React.Component<any, any> {
           
             <FormItem
               {...formItemLayout}
-              label="验证码"
+              label="驗證碼"
               extra="We must make sure that your are a human."
             >
               <Row gutter={8}>
                 <Col span={12}>
                   {getFieldDecorator('captcha', {
-                    rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                    rules: [{ required: true, message: '請輸入你收到的驗證碼!' }],
                   })(
                     <Input />
                   )}
                 </Col>
                 <Col span={12}>
-                  <Button>Get captcha</Button>
+                  <Button>獲取驗證碼</Button>
                 </Col>
               </Row>
             </FormItem>
+      
             <FormItem {...tailFormItemLayout}>
-              {getFieldDecorator('agreement', {
-                valuePropName: 'checked',
-              })(
-                <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-              )}
-            </FormItem>
-            <FormItem {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">Register</Button>
+              <Button type="primary" htmlType="submit">註冊</Button>
             </FormItem>
           </Form>
         );

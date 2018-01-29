@@ -4,7 +4,7 @@ import { take, DataUrl } from "../../data/fetch";
 import { drawAPI, BaseType } from "../../tools/drawing";
 import { embedSVG, SVGType, SVGSrc } from "../../tools/svg";
 import { isConst, isEvent } from "../../tools/stringValidate";
-import { IHomeProps, IHomeState, JsSysAPI, OriginalObject } from "./homeTypes";
+import { IHomeProps, IHomeState, JsSysAPI, KeywordData, OriginalObject } from "./homeTypes";
 import { ClickParam } from "../../../node_modules/antd/lib/menu/index";
 import { StyleAntiCollision } from "../../tools/stylePrefix";
 
@@ -25,16 +25,18 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
         this.state = {
             data: [],
+            keywordData: [],
             currentObject: undefined
         }
 
-        take<JsSysAPI[]>(DataUrl.JsSysAPIAddress).then(data=>{
-            this.setState({ data: data });
+        take<JsSysAPI[]>(DataUrl.JsSysAPIAddress).then(d => {
+            this.setState({ data: d });
         })
-
-
+        take<KeywordData[]>(DataUrl.keywordsAddress).then(d => {
+            this.setState({ keywordData: d });
+        })
     }
- 
+
     createProperty = (oo: OriginalObject | undefined) => {
 
         var Properties = [];
@@ -71,7 +73,9 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     }
 
     handleClick = (e: ClickParam) => {
-
+        if (e.keyPath[1] == 'keywords') {
+            return;
+        }
         var objectName = ""
         for (const item of this.state.data) {
             if (item.key.toString() == e.key) {
@@ -95,7 +99,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     }
     render() {
 
-        const { data, currentObject } = this.state;
+        const { data, currentObject, keywordData } = this.state;
         return (
             <div id={s.suffix('home')}>
                 <div>
@@ -111,10 +115,12 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                             })}
 
                         </SubMenu>
-                        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>キーワード</span></span>}>
-                            <Menu.Item key="5">var</Menu.Item>
-                            <Menu.Item key="6">let</Menu.Item>
-                            <Menu.Item key="6">const</Menu.Item>
+                        <SubMenu key="keywords" title={<span><Icon type="appstore" /><span>キーワード</span></span>}>
+                            {keywordData.map(p => {
+                                return <Menu.Item key={p.key}>{p.name}</Menu.Item>
+                            })}
+
+
                         </SubMenu>
                         <SubMenu key="sub4" title={<span><Icon type="setting" /><span>新しい特性</span></span>}>
                             <Menu.Item key="9">@</Menu.Item>
