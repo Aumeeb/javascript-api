@@ -1,5 +1,5 @@
 
-export async function get<T>(path: string): Promise<T> {
+export async function take<T>(path: string): Promise<T> {
     var response = await fetch(path);
     return await response.json() as Promise<T>
 

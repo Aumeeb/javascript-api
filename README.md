@@ -1,5 +1,5 @@
 # 🦄javascript-api is updating now🦄
-项目功能正在持续更新, 欢迎大家学习探讨
+使用react,ts 构建大型应用程序项目功能正在持续更新, 欢迎大家学习探讨
 <br/>
 
 # 🏆技术点 technology🏆

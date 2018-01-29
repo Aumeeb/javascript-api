@@ -4,7 +4,6 @@
   "descriptionpmn": "",
   "main": "",
   "scripts": {
-    "build": "tsc webpack.config.ts && webpack -w",
     "dev": "tsc webpack.config.ts && webpack-dev-server --open"
   },
   "author": "noberk",

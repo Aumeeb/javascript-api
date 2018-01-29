@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Menu, Icon } from 'antd';
-import { get, DataUrl } from "../../data/fetch";
+import { take, DataUrl } from "../../data/fetch";
 import { drawAPI, BaseType } from "../../tools/drawing";
 import { embedSVG, SVGType, SVGSrc } from "../../tools/svg";
 import { isConst, isEvent } from "../../tools/stringValidate";
@@ -28,7 +28,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             currentObject: undefined
         }
 
-        get<JsSysAPI[]>(DataUrl.JsSysAPIAddress).then(data=>{
+        take<JsSysAPI[]>(DataUrl.JsSysAPIAddress).then(data=>{
             this.setState({ data: data });
         })
 

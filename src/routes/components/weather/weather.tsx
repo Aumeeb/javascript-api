@@ -1,5 +1,5 @@
 import * as React from "react";
-import { get, DataUrl } from "../../../data/fetch";
+import { take, DataUrl } from "../../../data/fetch";
 import { $img } from "../../../tools/config";
 const Fragment = React.Fragment
 
@@ -16,7 +16,7 @@ export default class Weather extends React.Component<IWeatherProps, IWeatherStat
             weatherData: undefined
         }
 
-        get<WeatherDetails>(DataUrl.weatcherAddress).then(d => {
+        take<WeatherDetails>(DataUrl.weatcherAddress).then(d => {
             this.setState({ weatherData: d });
         })
 
