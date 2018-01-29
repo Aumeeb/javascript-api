@@ -67,7 +67,7 @@ class Header extends React.Component<any, any> {
                     <Menu.Item key="app" >
                         <Icon type="appstore" spin />功能
                    </Menu.Item>
-                    <SubMenu title={<span><Icon type="setting" spin />設置</span>}>
+                    <SubMenu title={<span><Icon type="tool" spin />設置</span>}>
                         <MenuItemGroup title="介面">
                             <Menu.Item key="setting:1">皮膚</Menu.Item>
                             <Menu.Item key="setting:2">糾錯</Menu.Item>

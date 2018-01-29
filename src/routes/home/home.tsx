@@ -109,20 +109,20 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
                         mode="inline">
-                        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>システムオブジェクト</span></span>}>
+                        <SubMenu key="sub1" title={<span><Icon type="setting" spin /><span>系統變量</span></span>}>
                             {data.map(p => {
                                 return <Menu.Item key={p.key}>{p.name}</Menu.Item>
                             })}
 
                         </SubMenu>
-                        <SubMenu key="keywords" title={<span><Icon type="appstore" /><span>キーワード</span></span>}>
+                        <SubMenu key="keywords" title={<span><Icon type="database"  spin /><span>保留字</span></span>}>
                             {keywordData.map(p => {
                                 return <Menu.Item key={p.key}>{p.name}</Menu.Item>
                             })}
 
 
                         </SubMenu>
-                        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>新しい特性</span></span>}>
+                        <SubMenu key="sub4" title={<span><Icon type="star-o" spin /><span>新しい特性</span></span>}>
                             <Menu.Item key="9">@</Menu.Item>
 
                         </SubMenu>
@@ -130,7 +130,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
                 </div>
                 <div>
-                    <p className={s.suffix('propertyTitle')}>{currentObject != undefined ? `🥇 ${currentObject.descripion} Property  🥇` : `🥇 loading data 🥇`}</p>
+                    <p className={s.suffix('propertyTitle')}>{currentObject != undefined ? `🥇 ${currentObject.descripion} Property  ` : `🥇 loading data `}</p>
                     {this.createProperty(currentObject)}
                 </div>
             </div>
