@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Menu, Icon } from 'antd';
-import { take, DataUrl } from "../../data/fetch";
+import { take, infiniteTake, DataUrl } from "../../data/fetch";
 import { drawAPI, BaseType } from "../../tools/drawing";
 import { embedSVG, SVGType, SVGSrc } from "../../tools/svg";
 import { isConst, isEvent } from "../../tools/stringValidate";
 import { IHomeProps, IHomeState, JsSysAPI, KeywordData, OriginalObject } from "./homeTypes";
+import { WeatherDetails } from "../components/weather/weather";
+import { IArticle } from "../article/article";
 import { ClickParam } from "../../../node_modules/antd/lib/menu/index";
 import { StyleAntiCollision } from "../../tools/stylePrefix";
 
@@ -29,12 +31,16 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             currentObject: undefined
         }
 
-        take<JsSysAPI[]>(DataUrl.JsSysAPIAddress).then(d => {
-            this.setState({ data: d });
-        })
-        take<KeywordData[]>(DataUrl.keywordsAddress).then(d => {
-            this.setState({ keywordData: d });
-        })
+        infiniteTake<JsSysAPI[], KeywordData[], Array<IArticle>, Array<WeatherDetails>>(
+            DataUrl.JsSysAPIAddress,
+            DataUrl.keywordsAddress,
+            DataUrl.articleAddress,
+            DataUrl.weatcherAddress).then(d => {
+                this.setState({ data: d.first });
+                this.setState({ keywordData: d.second });
+            })
+
+
     }
 
     createProperty = (oo: OriginalObject | undefined) => {
@@ -115,7 +121,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                             })}
 
                         </SubMenu>
-                        <SubMenu key="keywords" title={<span><Icon type="database"  spin /><span>保留字</span></span>}>
+                        <SubMenu key="keywords" title={<span><Icon type="database" spin /><span>保留字</span></span>}>
                             {keywordData.map(p => {
                                 return <Menu.Item key={p.key}>{p.name}</Menu.Item>
                             })}

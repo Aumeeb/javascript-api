@@ -7,7 +7,7 @@ import './index.less';
 
 const Fragment = React.Fragment
 const s = new StyleAntiCollision('weather');
-type WeatherDetails = { time: string, list: [{ station_Name: string, tem: number }] };
+export type WeatherDetails = { time: string, list: [{ station_Name: string, tem: number }] };
 interface IWeatherProps {
 }
 interface IWeatherState {
