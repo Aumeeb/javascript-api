@@ -5,8 +5,6 @@ import { drawAPI, BaseType } from "../../tools/drawing";
 import { embedSVG, SVGType, SVGSrc } from "../../tools/svg";
 import { isConst, isEvent } from "../../tools/stringValidate";
 import { IHomeProps, IHomeState, JsSysAPI, KeywordData, OriginalObject } from "./homeTypes";
-import { WeatherDetails } from "../components/weather/weather";
-import { IArticle } from "../article/article";
 import { ClickParam } from "../../../node_modules/antd/lib/menu/index";
 import { StyleAntiCollision } from "../../tools/stylePrefix";
 
@@ -31,19 +29,17 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             currentObject: undefined
         }
 
-        infiniteTake<JsSysAPI[], KeywordData[], Array<IArticle>, Array<WeatherDetails>>(
+        infiniteTake<JsSysAPI[], KeywordData[]>(
             DataUrl.JsSysAPIAddress,
-            DataUrl.keywordsAddress,
-            DataUrl.articleAddress,
-            DataUrl.weatcherAddress).then(d => {
+            DataUrl.keywordsAddress, ).then(d => {
                 this.setState({ data: d.first });
                 this.setState({ keywordData: d.second });
             })
 
 
     }
-
-    createProperty = (oo: OriginalObject | undefined) => {
+    /** 创建属性  forin */
+    createForInProperty = (oo: OriginalObject | undefined) => {
 
         var Properties = [];
 
@@ -51,16 +47,42 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             for (const key in oo.object) {
                 let svg = this.drawAnObject(typeof oo.object[key], key);
                 Properties.push(
-                    <div key={key}>
+                    <div key={key} className={s.suffix('eleIndent')}>
                         {svg}
                         <span className={s.suffix('propertyName')}>{key}</span>
                     </div>
                 )
             }
         }
-
         return Properties;
     }
+    /**创建自身属性 ,不包含prototype里的属性 */
+    createOwnProperty = (oo: OriginalObject | undefined) => {
+
+        var Properties = [];
+
+        if (oo != undefined) {
+            for (const key in oo.OwnPropertyDescriptors) {
+                try {
+                 
+                   const typeName = eval(`typeof ${oo.name}.${key}`);
+
+                    let svg = this.drawAnObject(typeName, key);
+                    Properties.push(
+                        <div key={key} className={s.suffix('eleIndent')}>
+                            {svg}
+                            <span className={s.suffix('propertyName')}>{key}</span>
+                        </div>
+                    )
+                } catch (error) {
+                    console.log(error);
+                }
+          
+            }
+        }
+        return Properties;
+    }
+
     drawAnObject = (type: BaseType, key: string) => {
 
         let svgSrc = "";
@@ -79,9 +101,10 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     }
 
     handleClick = (e: ClickParam) => {
-        if (e.keyPath[1] == 'keywords') {
+        if (e.keyPath[1] == 'keywords') { //保留字
             return;
         }
+        //选中一个属性 从集合中判断是否存在 ,
         var objectName = ""
         for (const item of this.state.data) {
             if (item.key.toString() == e.key) {
@@ -90,13 +113,13 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             }
         }
 
+        //如果存在的话..
         if (objectName != "") {
 
-            //     const roots = new Map<string, OriginalObject>();
             var obj = new class implements OriginalObject {
                 object = eval(objectName);
                 Prototype = eval(`${objectName}.prototype`);
-                descripion = objectName;
+                name = objectName;
                 OwnPropertyDescriptors = eval(`Object.getOwnPropertyDescriptors(${objectName})`);
             }
 
@@ -136,8 +159,11 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
                 </div>
                 <div>
-                    <p className={s.suffix('propertyTitle')}>{currentObject != undefined ? `🥇 ${currentObject.descripion} Property  ` : `🥇 loading data `}</p>
-                    {this.createProperty(currentObject)}
+                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥇 ${currentObject.name} For In Property 🥇` : `🥇 loading data `}</p>
+                    {this.createForInProperty(currentObject)}
+
+                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥈 ${currentObject.name} Property 🥈` : `🥈 loading data `}</p>
+                    {this.createOwnProperty(currentObject)}
                 </div>
             </div>
         );

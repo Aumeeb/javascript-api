@@ -36,6 +36,32 @@
         "name": "Function"
     },
     {
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B861",
+        "name": "Promise"
+    },
+    {
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B862",
+        "name": "Proxy"
+    },
+    {
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B863",
+        "name": "ReferenceError"
+    },
+    {
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B864",
+        "name": "RangeError"
+    },
+    {
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B865",
+        "name": "Reflect"
+    },
+    {
+        "key": "B4BEBB6A-0763-06A8-A709-40FF7321B866",
+        "name": "RegExp"
+    },
+
+
+    {
         "key": "3DE65524-AFA2-2140-B2D7-807D2AB48143",
         "name": "window"
     }

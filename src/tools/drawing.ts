@@ -46,7 +46,7 @@ export function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
     for (const item of roots) {
 
         let spet = document.createElement('p');
-        spet.innerText = `🥇 ${item["1"].descripion} Property  🥇`
+        spet.innerText = `🥇 ${item["1"].name} Property  🥇`
         canvas.appendChild(spet);
 
         let originalObj = item["1"].object;
@@ -58,7 +58,7 @@ export function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
         if (item["1"].OwnPropertyDescriptors != undefined) {
             let spet = document.createElement('p');
             spet.style.paddingLeft = '100px';
-            spet.innerText = `🥈 ${item["1"].descripion} OwnPropertyDescriptors 🥈`
+            spet.innerText = `🥈 ${item["1"].name} OwnPropertyDescriptors 🥈`
             canvas.appendChild(spet);
 
             for (const key in item["1"].OwnPropertyDescriptors) {
@@ -70,7 +70,7 @@ export function drawAPI(canvas: Node, roots: Map<string, OriginalObject>) {
         if (item["1"].Prototype != undefined) {
             let spet = document.createElement('p');
             spet.style.paddingLeft = '200px';
-            spet.innerText = `🥉 ${item["1"].descripion} Prototype OwnPropertyDescriptors 🥉`
+            spet.innerText = `🥉 ${item["1"].name} Prototype OwnPropertyDescriptors 🥉`
             canvas.appendChild(spet);
 
             

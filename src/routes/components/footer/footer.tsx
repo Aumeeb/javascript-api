@@ -21,7 +21,7 @@ class Footer extends React.Component<any, any> {
         return (
             <div className={s.suffix('footer_wrapper')}>
                 <p><Icon type='github'/></p>
-                <p> © NOBERK {new Date().getFullYear()}</p>
+                <p> © ANTNOBERK {new Date().getFullYear()}</p>
             </div>
         );
     }

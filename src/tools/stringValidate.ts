@@ -1,5 +1,5 @@
 export function isConst(str: string) {
-    if (/^[A-Z]+$/.test(str)) {
+    if (/^[A-Z]+$/.test(str)|| /^[A-Z]+/.test(str)) {
         return true
     } else {
         return false
