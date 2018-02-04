@@ -8,6 +8,26 @@
         "name": "Array"
     },
     {
+        "key": "CBF13D76-A0B8-7BCB-485F-5E27943DCFCB",
+        "name": "Float32Array"
+    },
+    {
+        "key": "CBF13D76-A0B8-7BCB-485F-5E27943DCFCC",
+        "name": "Float64Array"
+    },
+    {
+        "key": "CBF13D76-A0B8-7BCB-485F-5E27943DCFCD",
+        "name": "ArrayBuffer"
+    },
+    {
+        "key": "CBF13D76-A0B8-7BCB-485F-5E27943DCFCE",
+        "name": "AsyncFunction"
+    },
+    {
+        "key": "CBF13D76-A0B8-7BCB-485F-5E27943DCFCF",
+        "name": "Atomics"
+    },
+    {
         "key": "92517800-0BD2-CB56-2796-83114F3CDC77",
         "name": "Number"
     },
@@ -24,8 +44,16 @@
         "name": "Date"
     },
     {
+        "key": "59D3AE2D-01F5-0A6C-B4CC-ACF16D6F3DA8",
+        "name": "DataView"
+    },
+    {
         "key": "50733007-55C0-EDC1-000A-33DA0B2C06F1",
         "name": "Error"
+    },
+    {
+        "key": "50733007-55C0-EDC1-000A-33DA0B2C06F2",
+        "name": "EvalError"
     },
     {
         "key": "1B7FEF55-B611-C45D-45DF-76A6EEF557AD",
@@ -59,10 +87,56 @@
         "key": "B4BEBB6A-0763-06A8-A709-40FF7321B866",
         "name": "RegExp"
     },
-
-
     {
         "key": "3DE65524-AFA2-2140-B2D7-807D2AB48143",
         "name": "window"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48144",
+        "name": "Intl"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48145",
+        "name": "Intl.Collator"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48146",
+        "name": "Intl.DateTimeFormat"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48147",
+        "name": "Intl.NumberFormat"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48148",
+        "name": "Intl.PluralRules"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48149",
+        "name": "JSON"
+    },
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48159",
+        "name": "NaN"
+    }
+    ,
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48151",
+        "name": "Map"
+    }
+    ,
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-807D2AB48152",
+        "name": "Set"
+    }
+    ,
+    {
+        "key": "3DE65524-AFA2-2140-B2D7-2414124211222",
+        "name": "Math"
     }
 ]
+
+
+
+
+

@@ -46,12 +46,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         if (oo != undefined) {
             for (const key in oo.object) {
                 let svg = this.drawAnObject(typeof oo.object[key], key);
-                Properties.push(
-                    <div key={key} className={s.suffix('eleIndent')}>
-                        {svg}
-                        <span className={s.suffix('propertyName')}>{key}</span>
-                    </div>
-                )
+                Properties.push(this.createRow(svg, key))
             }
         }
         return Properties;
@@ -64,25 +59,41 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         if (oo != undefined) {
             for (const key in oo.OwnPropertyDescriptors) {
                 try {
-                 
-                   const typeName = eval(`typeof ${oo.name}.${key}`);
-
+                    const typeName = eval(`typeof ${oo.name}.${key}`);
                     let svg = this.drawAnObject(typeName, key);
-                    Properties.push(
-                        <div key={key} className={s.suffix('eleIndent')}>
-                            {svg}
-                            <span className={s.suffix('propertyName')}>{key}</span>
-                        </div>
-                    )
+                    Properties.push(this.createRow(svg, key))
                 } catch (error) {
                     console.log(error);
                 }
-          
             }
         }
         return Properties;
     }
+    /**创建原型属性  */
+    createPrototypeProperty = (oo: OriginalObject | undefined) => {
+        var Properties = [];
 
+        if (oo != undefined && oo.Prototype != undefined) {
+
+            for (const key in oo.Prototype) {
+                try {
+                    const typeName = eval(`typeof ${oo.name}.prototype.${key}`);
+                    let svg = this.drawAnObject(typeName, key);
+                    Properties.push(this.createRow(svg, key))
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+        return Properties;
+    }
+    /**创建元素的每一个 */
+    createRow = (icon: JSX.Element, key: string) => {
+        return <div key={key} className={s.suffix('eleIndent')}>
+            {icon}
+            <span className={s.suffix('propertyName')}>{key}</span>
+        </div>
+    }
     drawAnObject = (type: BaseType, key: string) => {
 
         let svgSrc = "";
@@ -115,12 +126,25 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
         //如果存在的话..
         if (objectName != "") {
+            var tryOwnPropertyDescriptors: any = null;
+            var tryPrototype: any = null;
+            try {
+                tryOwnPropertyDescriptors = eval(`Object.getOwnPropertyDescriptors(${objectName})`);
+            } catch (error) {
+                tryOwnPropertyDescriptors = undefined;
+            }
+
+            try {
+                tryPrototype = eval(`Object.getOwnPropertyDescriptors(${objectName}.prototype)`);
+            } catch (error) {
+                tryPrototype = undefined;
+            }
 
             var obj = new class implements OriginalObject {
                 object = eval(objectName);
-                Prototype = eval(`${objectName}.prototype`);
+                Prototype = tryPrototype;
                 name = objectName;
-                OwnPropertyDescriptors = eval(`Object.getOwnPropertyDescriptors(${objectName})`);
+                OwnPropertyDescriptors = tryOwnPropertyDescriptors
             }
 
             this.setState({ currentObject: obj })
@@ -159,11 +183,14 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
                 </div>
                 <div>
-                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥇 ${currentObject.name} For In Property 🥇` : `🥇 loading data `}</p>
+                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥇 ${currentObject.name} Properties 🥇` : `🥇 loading data `}</p>
                     {this.createForInProperty(currentObject)}
 
-                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥈 ${currentObject.name} Property 🥈` : `🥈 loading data `}</p>
+                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥈 ${currentObject.name} OwnProperies 🥈` : `🥈 loading data `}</p>
                     {this.createOwnProperty(currentObject)}
+
+                    <p className={s.suffix('bigPropertyTitle')}>{currentObject != undefined ? `🥉 ${currentObject.name} Impelements Properties 🥉` : `🥉 loading data `}</p>
+                    {this.createPrototypeProperty(currentObject)}
                 </div>
             </div>
         );
