@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from 'react-dom';
 import Home from "./routes/home/home";
 import Header from "./routes/components/header/header";
 import Footer from "./routes/components/footer/footer";
@@ -20,7 +19,7 @@ const RouteFor = (address: RouteSimpleType) => {
     )
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
 
     render() {
         return (
@@ -38,8 +37,4 @@ class App extends React.Component {
 }
 
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('react') as HTMLElement
-);
 

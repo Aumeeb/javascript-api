@@ -13,6 +13,8 @@
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "@types/react-intl": "^2.3.2",
+    "@types/react-redux": "^5.0.14",
+    "@types/redux": "^3.6.0",
     "antd": "^3.1.4",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
@@ -32,5 +34,9 @@
     "ts-loader": "^3.2.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
+  },
+  "dependencies": {
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
   }
 }

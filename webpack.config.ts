@@ -11,7 +11,7 @@ copyResources();
  
 const config: webpack.Configuration = {
     devtool: 'source-map',
-    entry: ['./src/app.tsx'],
+    entry: ['./src/index.tsx'],
     
     output: {
         path: path.resolve(__dirname, dev.outputFolder), //获取当前路径
