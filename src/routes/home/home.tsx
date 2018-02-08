@@ -7,12 +7,14 @@ import { isConst, isEvent } from "../../tools/stringValidate";
 import { IHomeProps, IHomeState, JsSysAPI, KeywordData, OriginalObject } from "./homeTypes";
 import { ClickParam } from "../../../node_modules/antd/lib/menu/index";
 import { StyleAntiCollision } from "../../tools/stylePrefix";
-
+import { StringBuilder } from "../../tools/stringBuilder";
 import './index.less';
 
 
-
-
+const a = new StringBuilder();
+a.append("123");
+a.append(",x");
+console.error(a.value)
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -32,6 +34,10 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         infiniteTake<JsSysAPI[], KeywordData[]>(
             DataUrl.JsSysAPIAddress,
             DataUrl.keywordsAddress, ).then(d => {
+                d.first.push({ name: 'React', key: 99 });
+                d.first.push({ name: 'React.Component', key: 992 });
+
+
                 this.setState({ data: d.first });
                 this.setState({ keywordData: d.second });
             })
