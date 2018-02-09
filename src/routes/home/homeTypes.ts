@@ -1,8 +1,10 @@
+import { FetchAction } from "../../redux/homeRedux";
+
 export interface OriginalObject {
     [Prototype: string]: any;
     object: any;
     Prototype: undefined | object;
-    OwnPropertyDescriptors : object;
+    OwnPropertyDescriptors: object;
     name?: string;
     readonlys?: string[];
     events?: string[];
@@ -20,13 +22,15 @@ export interface KeywordData {
 }
 export interface IHomeProps {
     suffix?: string;
-    
+
+    getSysAPIName: () => FetchAction<JsSysAPI[]>
+
+    getSysKeywordName: () => FetchAction<KeywordData[]>
 }
 
 export interface IHomeState {
-    keywordData:KeywordData[];
+    keywordData: KeywordData[];
     data: JsSysAPI[];
     currentObject?: OriginalObject;
 }
 
- 

@@ -2,7 +2,7 @@ import { JsSysAPI } from "../routes/home/homeTypes";
 import { AnyAction } from "redux";
 import { infiniteTake, DataUrl, take } from "../data/fetch";
  
-type FetchAction<T> = { type: any, data: Promise<T> };
+export type FetchAction<T> = { type: any, data: Promise<T> };
 
 export type HomeActionType = "getSysAPIName" | "getSysKeywordName" | "getNewFeaturesName" | undefined;
 
