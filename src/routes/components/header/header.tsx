@@ -1,7 +1,7 @@
 
 
 import * as React from "react";
-import { Menu, Icon, Input } from "antd";
+import { Menu, Icon, Input, Dropdown } from "antd";
 import { ClickParam } from "../../../../node_modules/antd/lib/menu/index";
 import Weather from "../weather/weather";
 import { StyleAntiCollision } from "../../../tools/stylePrefix";
@@ -9,7 +9,13 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import './index.less';
 
 
-
+const menu = (
+    <Menu>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+      </Menu.Item>
+    </Menu>
+  );
 
 const Search = Input.Search;
 const SubMenu = Menu.SubMenu;
@@ -25,12 +31,19 @@ class Header extends React.Component<any, any> {
             current: 'home',
             name: 'Eric',
             unreadCount: 1000,
+            dropDownVisible:false,
         }
+
+    }
+    onChange = (value: React.ChangeEvent<HTMLInputElement>) => {
+        console.info(value.target.value)
+        this.setState({dropDownVisible:true })
     }
 
+
     handleClick = (e: ClickParam) => {
-        if(e.key == 'home'){
-            location.href='/';
+        if (e.key == 'home') {
+            location.href = '/';
         }
         this.setState({ current: e.key });
     }
@@ -48,9 +61,12 @@ class Header extends React.Component<any, any> {
 
                     </div>
                     <div>
-                        <Search placeholder="檢索" onSearch={value => console.log(value)} className={s.suffix('search')} />
+                        <Dropdown overlay={menu} placement="bottomLeft">
+                        <Search placeholder="檢索" onChange={this.onChange} className={s.suffix('search')} />     
+                        </Dropdown>
                         <a href="/#/login">登入</a>
                         <a href="/#/register">註冊</a>
+
                     </div>
                 </div>
                 <Menu
@@ -59,22 +75,22 @@ class Header extends React.Component<any, any> {
                     selectedKeys={[this.state.current]}
                     mode="horizontal">
                     <Menu.Item key="home" >
-                        <Icon type="home" spin />首頁
+                        <Icon type="home" />首頁
                     </Menu.Item>
                     <Menu.Item key="mail" >
-                        <Icon type="mail" spin />寫信
+                        <Icon type="mail" />寫信
                     </Menu.Item>
                     <Menu.Item key="app" >
-                        <Icon type="appstore" spin />功能
+                        <Icon type="appstore" />功能
                    </Menu.Item>
-                    <SubMenu title={<span><Icon type="tool" spin />設置</span>}>
+                    <SubMenu title={<span><Icon type="tool" />設置</span>}>
                         <MenuItemGroup title="介面">
                             <Menu.Item key="setting:1">皮膚</Menu.Item>
                             <Menu.Item key="setting:2">糾錯</Menu.Item>
                         </MenuItemGroup>
                     </SubMenu>
                     <Menu.Item key="alipay">
-                        <Icon type="github" spin />GITHUB
+                        <Icon type="github" />GITHUB
                     </Menu.Item>
                 </Menu>
             </div>
