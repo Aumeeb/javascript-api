@@ -7,9 +7,3 @@ ReactDOM.render(
     <App />,
     document.getElementById('react') as HTMLElement
 );
-
-
-
-
-
-
