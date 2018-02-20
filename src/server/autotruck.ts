@@ -4,7 +4,8 @@ import {dev} from './devOption'
 
 var copy = require('recursive-copy');
 
-const foldersName = ['data', 'resource'];
+//需要被复制的文件夹
+const foldersName = ['data', 'resource']; 
 const srcPath = path.resolve(__dirname, '..') + '\\' //获取资源路径
 
 const buildPath = path.resolve(__dirname, '../../') + '\\' + dev.outputFolder;

@@ -1,4 +1,4 @@
-import { FetchAction } from "../../redux/homeRedux";
+import { FetchAction, HomeActionType } from "../../redux/homeRedux";
 
 export interface OriginalObject {
     [Prototype: string]: any;
@@ -21,11 +21,10 @@ export interface KeywordData {
     key: number;
 }
 export interface IHomeProps {
+    homeInfo: any;
     suffix?: string;
+    getData: <T>(type: HomeActionType) => FetchAction<T> 
 
-    getSysAPIName: () => FetchAction<JsSysAPI[]>
-
-    getSysKeywordName: () => FetchAction<KeywordData[]>
 }
 
 export interface IHomeState {

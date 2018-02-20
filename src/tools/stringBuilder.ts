@@ -13,14 +13,13 @@ interface SearchFunc {
     name: string;
 }
 
-var x:SearchFunc;
+var x: SearchFunc;
 
 
 
 
 
+// const plus = (num: number) => (num: number) => {
 
-
-
-
+// }
 
